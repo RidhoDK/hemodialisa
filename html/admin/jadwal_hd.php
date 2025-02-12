@@ -1,8 +1,8 @@
 <?php
-include '../../koneksi.php';
-session_start();
+include('sess_check.php');
 
 $pagetitle = 'Jadwal HD';
+
 include('layout-top.php');
 include('layout-bottom.php');
 ?>
@@ -16,48 +16,45 @@ include('layout-bottom.php');
           <div style="justify-content: right; text-align: right; padding: 10px;">
             <a href="input-jadwal.php" class="btn btn-primary">Tambah Data</a>
           </div>
-          <table class="table">
-            <thead>
+          <table class="table table-bordered">
+            <thead class="thead-dark">
               <tr>
-                <td>NO</td>
-                <td>Nama Pasien</td>
-                <td>Tanggal Hemodialisa</td>
-                <td>Jam</td>
-                <td>Ruangan</td>
-                <td>Mesin</td>
-                <td>Status</td>
-                <td>Action</td>
+                <th>NO</th>
+                <th>Nama Pasien</th>
+                <th>Tanggal Hemodialisa</th>
+                <th>Jam</th>
+                <th>Ruangan</th>
+                <th>Mesin</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
-            <?php
-            // Inisialisasi variabel
-            $no = 1;
-            $query = "SELECT * FROM tbl_jadwal WHERE 1=1"; // 1=1 untuk memudahkan penambahan kondisi
+            <tbody>
+              <?php
+              $no = 1;
+              $query = "SELECT * FROM tbl_jadwal";
+              $tampil = mysqli_query($koneksi, $query);
 
-            $tampil = mysqli_query($koneksi, $query);
-            while ($data = mysqli_fetch_array($tampil)):
-            ?>
-              <tbody>
+              while ($data = mysqli_fetch_array($tampil)): ?>
                 <tr>
                   <td><?= $no++ ?></td>
-                  <td><?= $data['nama_pasien'] ?></td>
-                  <td><?= $data['tanggal'] ?></td>
-                  <td><?= $data['jam'] ?></td>
-                  <td><?= $data['ruangan'] ?></td>
-                  <td><?= $data['mesin'] ?></td>
-                  <td><?= $data['status'] ?></td>
+                  <td><?= htmlspecialchars($data['nama_pasien']) ?></td>
+                  <td><?= htmlspecialchars($data['tanggal']) ?></td>
+                  <td><?= htmlspecialchars($data['jam']) ?></td>
+                  <td><?= htmlspecialchars($data['ruangan']) ?></td>
+                  <td><?= htmlspecialchars($data['mesin']) ?></td>
+                  <td><?= htmlspecialchars($data['status']) ?></td>
                   <td>
-                    <a href="edit-jadwal.php?id_jadwal=<?= $data['id_jadwal'] ?>" class="btn btn-outline-warning">Edit</a>
+                    <a href="edit-jadwal.php?id_jadwal=<?= $data['id_jadwal'] ?>" class="btn btn-warning">Edit</a>
                     <form action="../../curd/curd-jadwal.php" method="POST" style="display: inline;">
                       <input type="hidden" name="id_jadwal" value="<?= $data['id_jadwal'] ?>">
-                      <button type="submit" name="bhapus" class="btn btn-outline-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
+                      <button type="submit" name="bhapus" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
                     </form>
-                    </form>
-                    <a href="../../cetak/pdf-jadwal.php?id_jadwal=<?= $data['id_jadwal'] ?>" class="btn btn-outline-success" target="_blank">Print</a>
+                    <a href="../../cetak/pdf-jadwal.php?id_jadwal=<?= $data['id_jadwal'] ?>" class="btn btn-success" target="_blank">Print</a>
                   </td>
                 </tr>
-              </tbody>
-            <?php endwhile; ?>
+              <?php endwhile; ?>
+            </tbody>
           </table>
         </div>
       </div>
