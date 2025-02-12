@@ -1,12 +1,12 @@
 <?php
 require('../fpdf186/fpdf.php'); // Pastikan file fpdf.php ada dalam folder yang sesuai
-include '../koneksi.php'; // File koneksi database
+include('../libs/koneksi.php');
 
 // Membuat objek FPDF
 $pdf = new FPDF('P', 'mm', 'A4'); // 'P' = Portrait, 'mm' = milimeter, 'A4' = ukuran kertas
 $pdf->AddPage();
 // Menambahkan logo (Sesuaikan path dan ukuran logo)
-$pdf->Image('http://localhost:8080/dashboardpkl1/assets/img/logo.png', 10, 10, 25);
+$pdf->Image('../assets/img/logo.jpeg', 10, 10, 25);
 // (path, posisi X, posisi Y, lebar)
 
 // Menambahkan alamat instansi di tengah
@@ -43,7 +43,7 @@ $pdf->Cell(30, 10, 'Sesudah Hemodialisa', 1, 1, 'C', true); // 1,1 agar pindah k
 // Mengambil data dari database
 $pdf->SetFont('Arial', '', 8);
 $no = 1;
-$id= $_GET["id_hasillab"];
+$id = $_GET["id_hasillab"];
 $query = mysqli_query($koneksi, "SELECT * FROM tbl_hasillab WHERE id_hasillab='$id'");
 
 while ($data = mysqli_fetch_assoc($query)) {
@@ -51,7 +51,7 @@ while ($data = mysqli_fetch_assoc($query)) {
     $pdf->Cell(40, 10, $data['nama_pasien'], 1, 0, 'L');
     $pdf->Cell(20, 10, $data['no_rm'], 1, 0, 'C');
     $pdf->Cell(20, 10, $data['urea'], 1, 0, 'C');
-    $pdf->Cell(20, 10, $data['Kreatinin'], 1, 0, 'C');
+    $pdf->Cell(20, 10, $data['kreatinin'], 1, 0, 'C');
     $pdf->Cell(20, 10, $data['hemoglobin'], 1, 0, 'C');
     $pdf->Cell(30, 10, $data['sebelum_hd'], 1, 0, 'C');
     $pdf->Cell(30, 10, $data['sesudah_hd'], 1, 1, 'C'); // 1,1 agar ke baris berikutnya
@@ -68,4 +68,3 @@ $pdf->Cell(300, 5, 'Nama Penanggung Jawab', 0, 1, 'C');
 
 // Output PDF
 $pdf->Output('I', 'Laporan_Hasil_Lab.pdf');
-?>

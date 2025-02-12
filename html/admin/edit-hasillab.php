@@ -1,17 +1,8 @@
 <?php
-session_start();
-include('../../koneksi.php');
+include('sess_check.php');
 
-// Proses logout jika tombol logout ditekan
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php"); // Redirect ke halaman login
-  exit();
-}
-
-$pagetitle = 'Edit Hasil lab';
+$titlepage = 'Edit Hasil lab';
 include('layout-top.php');
-
 ?>
 
 <!-- Layout container -->
@@ -41,13 +32,20 @@ include('layout-top.php');
           }
           ?>
 
-          <form action="../curd/curd-hasillab.php" method="POST">
+          <form action="../../curd/curd-hasillab.php" method="POST">
             <input type="hidden" name="id_hasillab" value="<?= $data['id_hasillab'] ?>">
             <div class="col-6 mb-3">
               <label class="form-label">
                 <b>Nama Pasien</b>
               </label>
-              <input class="form-control" type="text" name="tnama_pasien" value="<?= $data['nama_pasien'] ?>" placeholder="Masukkan Nama Pasien">
+              <select class="form-control" name="tnama_pasien">
+                <?php
+                $query = mysqli_query($koneksi, "SELECT nama_pasien FROM tbl_pasien");
+                while ($row = mysqli_fetch_assoc($query)) {
+                  echo "<option default='" . $data['nama_pasien'] . "' value='" . $row['nama_pasien'] . "'>" . $row['nama_pasien'] . "</option>";
+                }
+                ?>
+              </select>
             </div>
             <div class="col-6 mb-3">
               <label class="form-label">
@@ -65,7 +63,7 @@ include('layout-top.php');
               <label class="form-label">
                 <b>Kreatinin</b>
               </label>
-              <input class="form-control" type="text" name="tKreatinin" value="<?= $data['Kreatinin'] ?>" placeholder="Masukkan Hasil Tes">
+              <input class="form-control" type="text" name="tkreatinin" value="<?= $data['kreatinin'] ?>" placeholder="Masukkan Hasil Tes">
             </div>
             <div class="col-6 mb-3">
               <label class="form-label">

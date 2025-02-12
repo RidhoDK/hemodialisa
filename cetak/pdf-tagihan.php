@@ -1,12 +1,12 @@
 <?php
 require('../fpdf186/fpdf.php');
-include '../koneksi.php';
+include('../libs/koneksi.php');
 
 // Membuat objek FPDF
 $pdf = new FPDF('P', 'mm', 'A4');
 $pdf->AddPage();
 // Menambahkan logo (Sesuaikan path dan ukuran logo)
-$pdf->Image('http://localhost:8080/dashboardpkl1/assets/img/logo.png', 10, 10, 25);
+$pdf->Image('../assets/img/logo.jpeg', 10, 10, 25);
 // (path, posisi X, posisi Y, lebar)
 
 // Menambahkan alamat instansi di tengah
@@ -43,7 +43,7 @@ $pdf->Cell(30, 10, 'Status Pembayaran', 1, 1, 'C', true); // 1,1 agar pindah bar
 // Mengambil data dari database
 $pdf->SetFont('Arial', '', 8);
 $no = 1;
-$id= $_GET["id_tagihan"];
+$id = $_GET["id_tagihan"];
 $query = mysqli_query($koneksi, "SELECT * FROM tbl_tagihan WHERE id_tagihan='$id'");
 
 while ($data = mysqli_fetch_assoc($query)) {
@@ -68,4 +68,3 @@ $pdf->Cell(300, 5, 'Nama Penanggung Jawab', 0, 1, 'C');
 
 // Output PDF (Mode 'I' agar bisa direview di browser)
 $pdf->Output('I', 'Laporan_tagihan_pasien.pdf');
-?>
