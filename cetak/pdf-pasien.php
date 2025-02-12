@@ -1,13 +1,13 @@
 <?php
-require('../fpdf186/fpdf.php');
-include '../koneksi.php';
+include('../fpdf186/fpdf.php');
+include('../libs/koneksi.php');
 
 // Membuat objek FPDF
 $pdf = new FPDF('P', 'mm', 'A4');
 $pdf->AddPage();
 
 // Menambahkan logo (Sesuaikan path dan ukuran logo)
-$pdf->Image('http://localhost:8080/dashboardpkl1/assets/img/logo.png', 10, 10, 25);
+$pdf->Image('../assets/img/logo.png', 10, 10, 25);
 // (path, posisi X, posisi Y, lebar)
 
 // Menambahkan alamat instansi di tengah
