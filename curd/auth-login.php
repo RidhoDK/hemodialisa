@@ -38,7 +38,7 @@ if (isset($_POST['login'])) {
                 exit();
             case 'farmasi':
                 $_SESSION['farmasi'] = $data['id_akun'];
-                header("Location: ../html/farmasi/index_far.php");
+                header("Location: ../html/farmasi/index.php");
                 exit();
             default:
                 echo "<script>alert('Level user tidak valid!'); window.location='../login/index.php';</script>";

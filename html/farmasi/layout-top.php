@@ -1,23 +1,10 @@
-<?php
-session_start();
-include('../../koneksi.php');
-
-// Proses logout jika tombol logout ditekan
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php"); // Redirect ke halaman login
-  exit();
-}
-?>
-
 <!doctype html>
-
 <html
   lang="en"
   class="light-style layout-menu-fixed layout-compact"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../assets/"
+  data-assets-path="../../assets/"
   data-template="vertical-menu-template-free"
   data-style="light">
 
@@ -27,11 +14,11 @@ if (isset($_GET['logout'])) {
     name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Demo : Dashboard - Analytics | sneat - Bootstrap Dashboard PRO</title>
+  <title> <?= $pagetitle ?> </title>
 
   <meta name="description" content="" />
 
-
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -63,7 +50,6 @@ if (isset($_GET['logout'])) {
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
       <!-- Menu -->
-
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo" style="background: #98FB98;">
           <a href="index.html" class="app-brand-link">
@@ -82,7 +68,7 @@ if (isset($_GET['logout'])) {
         <ul class="menu-inner py-1" style="background: #98FB98; color: white;">
           <!-- Dashboards -->
           <li class="menu-item">
-            <a href="../farmasi/index_far.php" class="menu-link">
+            <a href="index.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-smile"></i>
               <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
             </a>
@@ -101,7 +87,7 @@ if (isset($_GET['logout'])) {
                 </a>
               </li>
               <li class="menu-item">
-                <a href="stok_darah.php" class="menu-link">
+                <a href="stok-darah.php" class="menu-link">
                   <div class="text-truncate" data-i18n="Without menu">Ketersediaan Stok Darah</div>
                 </a>
               </li>
@@ -121,7 +107,7 @@ if (isset($_GET['logout'])) {
           <li>
             <ul>
               <li class="menu-item">
-                <a href="?logout=true" style="color: red;">
+                <a href="../logout.php" style="color: red;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16" style="margin-right: 10px;">
                     <path d="M7.5 1v7h1V1z" />
                     <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812" />
@@ -135,89 +121,6 @@ if (isset($_GET['logout'])) {
       </aside>
       <!-- / Menu -->
 
-      <!-- Layout container -->
-      <div class="layout-page">
-        <!-- Navbar -->
-
-        <!-- / Navbar -->
-        <div class="layout-page">
-          <!-- / Navbar -->
-
-          <div class="container">
-            <div class="col-12">
-              <div class="card mt-10">
-                <div class="table-responsive">
-                  <div style="justify-content: right; text-align: right; padding: 10px;">
-                    <a href="input-alatobat.php" class="btn btzn-primary">Tambah Data</a>
-                  </div>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <td>NO</td>
-                        <td>Nama Barang</td>
-                        <td>Jumlah</td>
-                        <td>Tanggal Kedaluarsa</td>
-                        <td>Tersedia</td>
-                        <td>Action</td>
-                      </tr>
-                    </thead>
-                    <?php
-                    // Inisialisasi variabel
-                    $no = 1;
-                    $query = "SELECT * FROM tbl_alatobat WHERE 1=1"; // 1=1 untuk memudahkan penambahan kondisi
-
-                    $tampil = mysqli_query($koneksi, $query);
-                    while ($data = mysqli_fetch_array($tampil)):
-                    ?>
-                      <tbody>
-                        <tr>
-                          <td><?= $no++ ?></td>
-                          <td><?= $data['nama_barang'] ?></td>
-                          <td><?= $data['jumlah_stok'] ?></td>
-                          <td><?= $data['tgl_exp'] ?></td>
-                          <td><?= $data['tersedia'] ?></td>
-                          <td>
-                            <a href="../../html/edit-alatobat.php?id_alatobat=<?= $data['id_alatobat'] ?>" class="btn btn-outline-warning">Edit</a>
-                            <form action="../../curd/curd-alatobat.php" method="POST" style="display: inline;">
-                              <input type="hidden" name="id_alatobat" value="<?= $data['id_alatobat'] ?>">
-                              <button type="submit" name="bhapus" class="btn btn-outline-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
-                            </form>
-                            <a href="../../cetak/pdf-alatobat.php?id_alatobat=<?= $data['id_alatobat'] ?>" class="btn btn-outline-success" target="_blank">Print</a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    <?php endwhile; ?>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-
-          <!-- Core JS -->
-          <!-- build:js assets/vendor/js/core.js -->
-
-          <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-          <script src="../../assets/vendor/libs/popper/popper.js"></script>
-          <script src="../../assets/vendor/js/bootstrap.js"></script>
-          <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-          <script src="../../assets/vendor/js/menu.js"></script>
-
-          <!-- endbuild -->
-
-          <!-- Vendors JS -->
-          <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-          <!-- Main JS -->
-          <script src="../../assets/js/main.js"></script>
-
-          <!-- Page JS -->
-          <script src="../../assets/js/dashboards-analytics.js"></script>
-
-          <!-- Place this tag before closing body tag for github widget button. -->
-          <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>
