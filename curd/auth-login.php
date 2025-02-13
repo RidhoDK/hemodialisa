@@ -20,8 +20,6 @@ if (isset($_POST['login'])) {
 
     $data = mysqli_fetch_assoc($result);
 
-    var_dump($data);
-
     if ($data) {
         $_SESSION['type'] = $data['type'];
 
