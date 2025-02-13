@@ -1,28 +1,11 @@
 <?php
-session_start();
-include('../../koneksi.php');
-
-// Proses logout jika tombol logout ditekan
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php"); // Redirect ke halaman login
-  exit();
-}
+include('sess_check.php');
 
 $titlepage = 'Edit Alat dan Obat';
 include('layout-top.php');
 ?>
 
-<!-- / Menu -->
-
-<!-- Layout container -->
 <div class="layout-page">
-  <!-- Navbar -->
-
-
-
-  <!-- / Navbar -->
-
   <div class="container">
     <div class="col-12">
       <div class="card mt-10 p-4">
@@ -44,7 +27,7 @@ include('layout-top.php');
           }
           ?>
 
-          <form action="../curd/curd-alatobat.php" method="POST">
+          <form action="../../curd/curd-alatobat.php" method="POST">
             <input type="hidden" name="id_alatobat" value="<?= $data['id_alatobat'] ?>">
             <div class="col-6 mb-3">
               <label class="form-label">

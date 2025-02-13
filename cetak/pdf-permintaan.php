@@ -1,7 +1,6 @@
 <?php
-ob_start(); // Hindari output sebelum PDF dibuat
 require('../fpdf186/fpdf.php');
-include '../koneksi.php';
+include('../libs/koneksi.php');
 
 // Periksa koneksi database
 if (!$koneksi) {
@@ -12,7 +11,7 @@ if (!$koneksi) {
 $pdf = new FPDF('P', 'mm', 'A4');
 $pdf->AddPage();
 // Menambahkan logo (Sesuaikan path dan ukuran logo)
-$pdf->Image('http://localhost:8080/dashboardpkl1/assets/img/logo.png', 10, 10, 25);
+$pdf->Image('../assets/img/logo.jpeg', 10, 10, 25);
 // (path, posisi X, posisi Y, lebar)
 
 // Menambahkan alamat instansi di tengah
@@ -55,7 +54,7 @@ $pdf->Cell(20, 10, 'Catatan', 1, 1, 'C', true);
 // Mengambil data dari database
 $pdf->SetFont('Arial', '', 8);
 $no = 1;
-$id= $_GET["id_permintaan"];
+$id = $_GET["id_permintaan"];
 $query = mysqli_query($koneksi, "SELECT * FROM tbl_permintaan WHERE id_permintaan='$id'");
 if (!$query) {
     die("Query error: " . mysqli_error($koneksi));
@@ -89,4 +88,3 @@ $pdf->Cell(300, 5, 'Nama Penanggung Jawab', 0, 1, 'C');
 // Pastikan tidak ada output sebelum mengirim PDF
 ob_end_clean();
 $pdf->Output('I', 'Laporan_Permintaan_Darah.pdf');
-?>

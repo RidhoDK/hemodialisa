@@ -1,18 +1,12 @@
 <?php
-ob_start(); // Hindari output sebelum PDF dibuat
 require('../fpdf186/fpdf.php');
-include '../koneksi.php';
-
-// Periksa koneksi database
-if (!$koneksi) {
-    die("Koneksi database gagal: " . mysqli_connect_error());
-}
+include('../libs/koneksi.php');
 
 // Membuat objek FPDF dalam mode **Potrait (P)**
 $pdf = new FPDF('P', 'mm', 'A4');
 $pdf->AddPage();
 // Menambahkan logo (Sesuaikan path dan ukuran logo)
-$pdf->Image('http://localhost:8080/dashboardpkl1/assets/img/logo.png', 10, 10, 25);
+$pdf->Image('../assets/img/logo.jpeg', 10, 10, 25);
 // (path, posisi X, posisi Y, lebar)
 
 // Menambahkan alamat instansi di tengah
@@ -52,7 +46,7 @@ $pdf->Cell(35, 10, 'Terakhir Diupdate', 1, 1, 'C', true);
 // Mengambil data dari database
 $pdf->SetFont('Arial', '', 10);
 $no = 1;
-$id= $_GET["id_stokdarah"];
+$id = $_GET["id_stokdarah"];
 $query = mysqli_query($koneksi, "SELECT * FROM tbl_stokdarah WHERE id_stokdarah='$id'");
 
 if (!$query) {
@@ -89,4 +83,3 @@ $pdf->Cell(300, 5, 'Nama Penanggung Jawab', 0, 1, 'C');
 // Pastikan tidak ada output sebelum mengirim PDF
 ob_end_clean();
 $pdf->Output('I', 'Laporan_Stok_Darah.pdf');
-?>

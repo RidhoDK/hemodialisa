@@ -1,6 +1,5 @@
 <?php
-include '../koneksi.php';
-session_start();
+include('sess_check.php');
 
 $titlepage = 'Input Stok';
 include('layout-top.php');
@@ -9,15 +8,11 @@ include('layout-bottom.php');
 
 <!-- Layout container -->
 <div class="layout-page">
-  <!-- Navbar -->
-
-  <!-- / Navbar -->
-
   <div class="container">
     <div class="col-12">
       <div class="card mt-10 p-4">
         <div class="row">
-          <form action="../curd/curd-stok.php" method="POST">
+          <form action="../../curd/curd-stok.php" method="POST">
             <div class="col-6 mb-3">
               <label class="form-label">
                 <b>Golongan Darah</b>
