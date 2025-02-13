@@ -1,13 +1,5 @@
 <?php
-session_start();
-include('../../koneksi.php');
-
-// Proses logout jika tombol logout ditekan
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php"); // Redirect ke halaman login
-  exit();
-}
+include('sess_check.php');
 
 $pagetitle = 'Edit Stok';
 include('layout-top.php');
@@ -65,7 +57,13 @@ include('layout-top.php');
               <label class="form-label">
                 <b>Tempat Penyimpanan</b>
               </label>
-              <input class="form-control" type="text" name="ttgl_exp" value="<?= $data['tgl_exp'] ?>" placeholder="Masukkan Tempat Penyimpanan">
+              <input class="form-control" type="text" name="ttempat" value="<?= $data['tempat'] ?>" placeholder="Masukkan Tempat Penyimpanan">
+            </div>
+            <div class="col-6 mb-3">
+              <label class="form-label">
+                <b>Tanggal Kadaluwarsa</b>
+              </label>
+              <input class="form-control" type="text" name="ttgl_exp" value="<?= $data['tgl_exp'] ?>" placeholder="tanggal kadaluwarsa">
             </div>
             <div class="col-6 mb-3">
               <label class="form-label">

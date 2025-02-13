@@ -1,17 +1,10 @@
 <?php
-session_start();
+include('sess_check.php');
 
-// Proses logout jika tombol logout ditekan
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php"); // Redirect ke halaman login
-  exit();
-}
 $titlepage = 'Input Obat';
 include('layout-top.php');
 include('layout-bottom.php');
 ?>
-
 
 <!-- Layout container -->
 <div class="layout-page">
@@ -19,7 +12,7 @@ include('layout-bottom.php');
     <div class="col-12">
       <div class="card mt-10 p-4">
         <div class="row">
-          <form action="../curd/curd-alatobat.php" method="POST">
+          <form action="../../curd/curd-alatobat.php" method="POST">
             <div class="col-6 mb-3">
               <label class="form-label">
                 <b>Nama Barang</b>

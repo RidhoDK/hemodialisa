@@ -1,12 +1,12 @@
 <?php
 require('../fpdf186/fpdf.php');
-include '../koneksi.php';
+include('../libs/koneksi.php');
 
 $pdf = new FPDF('P', 'mm', 'A4');
 $pdf->AddPage();
 
 // Menambahkan logo (Sesuaikan path dan ukuran logo)
-$pdf->Image('http://localhost:8080/dashboardpkl1/assets/img/logo.png', 10, 10, 25);
+$pdf->Image('../assets/img/logo.jpeg', 10, 10, 25);
 // (path, posisi X, posisi Y, lebar)
 
 // Menambahkan alamat instansi di tengah
@@ -49,7 +49,7 @@ $pdf->Cell($colWidths[6], 10, 'Status', 1, 1, 'C', true); // Pastikan menggunaka
 // Mengambil data dari database
 $pdf->SetFont('Arial', '', 10);
 $no = 1;
-$id= $_GET["id_jadwal"];
+$id = $_GET["id_jadwal"];
 $query = mysqli_query($koneksi, "SELECT * FROM tbl_jadwal WHERE id_jadwal='$id'");
 
 while ($data = mysqli_fetch_assoc($query)) {
@@ -75,4 +75,3 @@ $pdf->Cell(300, 5, 'Nama Penanggung Jawab', 0, 1, 'C');
 
 // Output PDF
 $pdf->Output('I', 'Laporan_Jadwal.pdf'); // D untuk download langsung
-?>
