@@ -21,20 +21,23 @@ if (isset($_POST['login'])) {
     $data = mysqli_fetch_assoc($result);
 
     if ($data) {
-        $_SESSION['admin'] = $data['id_akun'];
         $_SESSION['type'] = $data['type'];
 
         switch ($data['type']) {
             case 'admin':
+                $_SESSION['admin'] = $data['id_akun'];
                 header("Location: ../html/admin/index.php");
                 exit();
             case 'operator':
+                $_SESSION['opterator'] = $data['id_akun'];
                 header("Location: ../html/operator/index.php");
                 exit();
             case 'dokter':
-                header("Location: ../html/dokter/index_dok.php");
+                $_SESSION['dokter'] = $data['id_akun'];
+                header("Location: ../html/dokter/index.php");
                 exit();
             case 'farmasi':
+                $_SESSION['farmasi'] = $data['id_akun'];
                 header("Location: ../html/farmasi/index_far.php");
                 exit();
             default:
