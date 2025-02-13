@@ -2,12 +2,12 @@
 session_start();
 include("../../libs/koneksi.php");
 
-if (!isset($_SESSION['admin']) || empty($_SESSION['admin'])) {
+if (!isset($_SESSION['dokter']) || empty($_SESSION['dokter'])) {
     header("location: ../../login/index.php");
     exit();
 }
 
-$chk_sess = $_SESSION['admin'];
+$chk_sess = $_SESSION['dokter'];
 
 $sql_sess = "SELECT * FROM tbl_akun WHERE id_akun='" . mysqli_real_escape_string($koneksi, $chk_sess) . "'";
 $ress_sess = mysqli_query($koneksi, $sql_sess);

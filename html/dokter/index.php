@@ -1,16 +1,21 @@
 <?php
 include('sess_check.php');
 
-$pagetitle = 'Halaman Admin';
+$pagetitle = 'Halaman Dokter';
 include('layout-top.php');
+include('layout-bottom.php');
 ?>
-
+<!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
   <div class="layout-container">
+    <!-- Layout container -->
     <div class="layout-page">
       <div class="content-wrapper">
+        <!-- Content -->
+
         <div class="container-xxl flex-grow-1 container-p-y">
           <div class="row">
+            <!--/ Total Revenue -->
             <div class="col-12 col-md-8 col-lg-12 col-xxl-4 order-3 order-md-2">
               <div class="row">
                 <div class="col-6 mb-6">
@@ -25,6 +30,7 @@ include('layout-top.php');
                       </div>
                       <p class="mb-1">Data Pasien</p>
                       <?php
+                      // Query untuk menghitung jumlah pasien
                       $query = "SELECT COUNT(nama_pasien) AS total_pasien FROM tbl_pasien";
                       $result = mysqli_query($koneksi, $query);
                       $row = mysqli_fetch_assoc($result);
@@ -46,6 +52,7 @@ include('layout-top.php');
                       </div>
                       <p class="mb-1">Jadwal Hemodialisa</p>
                       <?php
+                      // Query untuk menghitung jumlah pasien
                       $query = "SELECT COUNT(nama_pasien) AS total_pasien FROM tbl_jadwal";
                       $result = mysqli_query($koneksi, $query);
                       $row = mysqli_fetch_assoc($result);
@@ -67,6 +74,7 @@ include('layout-top.php');
                       </div>
                       <p class="mb-1">Tagihan Pasien</p>
                       <?php
+                      // Query untuk menghitung jumlah pasien
                       $query = "SELECT SUM(total_biaya) AS total FROM tbl_tagihan";
                       $result = mysqli_query($koneksi, $query);
                       $row = mysqli_fetch_assoc($result);
@@ -80,6 +88,7 @@ include('layout-top.php');
             </div>
           </div>
         </div>
+        <!-- / Content -->
 
         <!-- Footer -->
         <footer class="content-footer footer bg-footer-theme">
@@ -92,13 +101,10 @@ include('layout-top.php');
             </div>
           </div>
         </footer>
+        <!-- / Footer -->
       </div>
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->
   </div>
-
-  <!-- Overlay -->
 </div>
-
-<?php include('layout-bottom.php'); ?>
