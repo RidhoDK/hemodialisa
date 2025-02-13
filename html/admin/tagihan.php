@@ -1,26 +1,13 @@
 <?php
-session_start();
-include('../../koneksi.php');
-
-// Proses logout jika tombol logout ditekan
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php"); // Redirect ke halaman login
-  exit();
-}
+include('sess_check.php');
 
 $titlepage = 'Tagihan';
 include('layout-top.php');
-include('layout-bottom.php');
 ?>
 
 
 <!-- Layout container -->
 <div class="layout-page">
-  <!-- Navbar -->
-
-  <!-- / Navbar -->
-
   <div class="container">
     <div class="col-12">
       <div class="card mt-10">
@@ -62,11 +49,11 @@ include('layout-bottom.php');
                   <td><?= $data['status_pembayaran'] ?></td>
                   <td>
                     <a href="edit-tagihan.php?id_tagihan=<?= $data['id_tagihan'] ?>" class="btn btn-outline-warning">Edit</a>
-                    <form action="../curd/curd-tagihan.php" method="POST" style="display: inline;">
+                    <form action="../../curd/curd-tagihan.php" method="POST" style="display: inline;">
                       <input type="hidden" name="id_tagihan" value="<?= $data['id_tagihan'] ?>">
                       <button type="submit" name="bhapus" class="btn btn-outline-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
                     </form>
-                    <a href="../cetak/pdf-tagihan.php?id_tagihan=<?= $data['id_tagihan'] ?>" class="btn btn-outline-success" target="_blank">Print</a>
+                    <a href="../../cetak/pdf-tagihan.php?id_tagihan=<?= $data['id_tagihan'] ?>" class="btn btn-outline-success" target="_blank">Print</a>
                   </td>
                 </tr>
               </tbody>
@@ -77,3 +64,5 @@ include('layout-bottom.php');
     </div>
   </div>
 </div>
+
+<?php include('layout-bottom.php'); ?>

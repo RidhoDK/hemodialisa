@@ -1,8 +1,8 @@
 <?php
-include '../../koneksi.php';
-session_start();
+include('sess_check.php');
 
 $pagetitle = 'Edit Pasien';
+
 include('layout-top.php');
 include('layout-bottom.php');
 ?>

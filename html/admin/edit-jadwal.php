@@ -1,12 +1,5 @@
 <?php
-session_start();
-
-// Proses logout jika tombol logout ditekan
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php"); // Redirect ke halaman login
-  exit();
-}
+include('sess_check.php');
 
 $pagetitle = 'Edit Jadwal';
 include('layout-top.php');
@@ -40,13 +33,17 @@ include('layout-top.php');
           }
           ?>
 
-          <form action="../curd/curd-jadwal.php" method="POST">
+          <form action="../../curd/curd-jadwal.php" method="POST">
             <input type="hidden" name="id_jadwal" value="<?= $data['id_jadwal'] ?>">
             <div class="col-6 mb-3">
-              <label class="form-label">
-                <b>Nama Pasien</b>
-              </label>
-              <input class="form-control" type="text" name="tpasien" value="<?= $data['nama_pasien'] ?>" placeholder="Masukkan Nama Pasien">
+              <select class="form-control" name="tpasien">
+                <?php
+                $query = mysqli_query($koneksi, "SELECT nama_pasien FROM tbl_pasien");
+                while ($row = mysqli_fetch_assoc($query)) {
+                  echo "<option default='" . $data['nama_pasien'] . "' value='" . $row['nama_pasien'] . "'>" . $row['nama_pasien'] . "</option>";
+                }
+                ?>
+              </select>
             </div>
             <div class="col-6 mb-3">
               <label class="form-label">

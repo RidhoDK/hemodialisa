@@ -1,0 +1,5 @@
+DirectoryIndex login/index.php
+RewriteEngine On
+RewriteBase /hemodialisa/
+RewriteRule ^$ html/login.php [L]
+RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [L]
